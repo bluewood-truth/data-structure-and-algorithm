@@ -37,6 +37,59 @@
 * index의 원소를 index+1의 원소로 바꿈.
   * 리스트의 끝까지 위 작업을 반복하고, 리스트의 마지막 자리를 삭제함.
   
-
 * `.index(element)`: 해당 원소의 index를 반환함.
+
+<br>
+
+# Part3. Sorting & Searching
+
+### Python의 정렬 기능
+
+* `sorted(List)`: 정렬된 리스트를 반환함
+* `.sort()`: 리스트를 정렬함
+* `reverse=True` 인자를 추가하여 역순으로 정렬도 가능
+
+#### 숫자형이 아닌 자료형의 정렬
+
+* `key=함수 또는 람다식` 인자를 추가함
+
+### 탐색 알고리즘
+
+#### 선형 탐색(Linear Search)
+
+* 리스트의 첫 요소부터 순서대로 찾으려는 값과 비교하며 찾음
+
+* 리스트의 길이에 비례하는 O(n) 연산
+* 최악의 경우(마지막 요소거나 없는 요소일 경우) 리스트의 모든 원소를 탐색해야 함
+
+#### 이진 탐색(Binary Search)
+
+* 탐색하려는 리스트가 크기순으로 정렬되어 있는 경우
+* 찾으려는 값을 리스트의 중앙값을 비교 -> 해당하지 않는 범위를 버리기를 반복
+* 한번 비교가 일어날 때마다 리스트가 반씩 줄어드는(divide & conquer) O(log n) 연산
+
+	```python
+def solution(L, x):
+    if x < L[0] or x > L[-1]:
+        return -1
+    
+    lower = 0
+    upper = len(L) - 1
+    
+    while lower <= upper:
+        if upper - lower == 1:
+            break
+        
+        median = (lower + upper) // 2
+        if L[median] > x:
+            upper = median
+        elif L[median] < x:
+            lower = median
+        else:
+            return median
+    
+    return -1
+  ```
+
+<br>
 
