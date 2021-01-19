@@ -204,7 +204,7 @@ def func(n):
 
 <br>
 
-# Part7. Linked List
+# Part7. Linked List 1
 
 ### 추상적 자료구조(Abstract Data Structure)
 
@@ -222,8 +222,6 @@ def func(n):
 | -------------- | ----------- | ----------- |
 | 저장 공간      | 연속한 위치 | 임의의 위치 |
 | 특정 원소 조회 | O(1)        | O(n)        |
-
-
 
 ### 연결 리스트 구현
 
@@ -258,4 +256,91 @@ def func(n):
           return current
   ```
 
-  
+* 연결 리스트 순회 (연결 리스트 요소들을 리스트로 반환)
+
+  ```python
+  # class LinkedList
+  	def getList(self):
+          result = []
+          current = self.head
+          while current:
+              result.append(current.value)
+              current = current.next
+          return result
+  ```
+
+<br>
+
+# Part8. Linked List 2
+
+* 원소의 삽입
+
+  * position이 가리키는 위치에(1 <= position <= nodeCount + 1) newNode를 삽입하고 성공/실패에 따라 True/False를 리턴
+  * 맨 앞, 맨 뒤에 삽입하는 경우 O(1), 중간에 삽입하는 경우 O(n)의 시간복잡도를 가짐.
+
+  ```python
+  # class LinkedList
+  	def insertAt(self, position, newNode) -> bool:
+          if position < 1 or position > self.nodeCount + 1:
+              return False
+          
+          if position == 1:
+              newNode.next = self.head
+              self.head = newNode
+          else:
+              if position == self.nodeCount + 1:
+                  previous = self.tail
+              else:
+                  previous = self.getAt(position - 1)
+              newNode.next = previous.next
+              previous.next = newNode
+             
+         	if position == self.nodeCount + 1:
+              self.tail = newNode
+             
+          self.nodeCount += 1
+          return True
+  ```
+
+* 원소의 삭제
+
+  * position이 가리키는 위치의 node를 삭제해고 그 값을 리턴
+
+  ```python
+  # class LinkedList
+  	def popAt(self, position):
+          if position < 1 or position > self.nodeCount:
+              raise IndexError
+          
+          if self.nodeCount == 1:
+              value = self.head.value
+              self.nodeCount -= 1
+              self.head = self.tail = None
+              return value
+          
+          if position == 1:
+              value = self.head.value
+              self.head = self.head.next
+          else:
+              previous = self.getAt(position - 1)
+              current = previous.next
+              value = current.value
+              previous.next = current.next
+              if position == self.nodeCount:
+                  self.tail = previous
+          
+          self.nodeCount -= 1
+          return value
+  ```
+
+* 두 리스트의 연결
+
+  ```python
+  # class LinkedList
+  	def concat(self, otherList):
+          self.tail.next = otherList.head
+          if otherList.tail:
+  	        self.tail = otherList.tail
+          self.nodeCount + otherList.nodeCount
+  ```
+
