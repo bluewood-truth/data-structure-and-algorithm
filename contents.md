@@ -93,3 +93,57 @@ def solution(L, x):
 
 <br>
 
+# Part4. Recursive Algorithms - Basic
+
+### 재귀 함수(Recursive Function)
+
+* 하나의 함수에서 자신을 다시 호출하여 작업을 수행하는 것
+* 많은 문제가 재귀를 통해 해결이 가능함
+
+### 재귀 호출의 종결 조건
+
+```python
+# 일반적인 재귀함수의 형태
+def func(n):
+    if n ...:
+        # 종결조건을 반드시 넣어줘야 함!
+    else:
+        ...
+        return func(...) # 종결조건을 만족하지 못하면 재귀호출
+```
+
+### Recursive vs Iterative
+
+* 재귀함수는 항상 반복문으로 표현 가능함
+
+* 효율성 면에서는 반복문이 나으나, 재귀함수는 사람이 직관적으로 이해하기 쉬움
+
+* 피보나치 수열을 구하는 함수 (재귀 vs 반복)
+
+	```python
+	# Recursive
+	def solution(x):
+	    if x <= 0:
+	        return 0
+	    elif x == 1:
+	        return 1
+	    else:
+	        return solution(x-2) + solution(x-1)
+	```
+	
+	```python
+	# Iterative
+	def solution(x):
+	    if x <= 1:
+	        return x
+	    
+	    iter_A = 0
+	    iter_B = 1
+	    
+	    for n in range(2, x):
+	        iter_A, iter_B = iter_B, iter_A + iter_B
+	
+	    return iter_A + iter_B
+	```
+	
+	
