@@ -204,3 +204,58 @@ def func(n):
 
 <br>
 
+# Part7. Linked List
+
+### 추상적 자료구조(Abstract Data Structure)
+
+* 데이터와 추상적으로 표현되는 일련의 연산들을 제공하는 자료구조
+  * Data: 정수, 문자열, 레코드...
+  * Operations: 삽입, 삭제, 순회... / 정렬, 탐색...
+
+### 연결 리스트(Linked List)
+
+* 각 요소가 노드(node)로 구성됨
+  * 노드는 데이터와 다음 노드(link)에 대한 정보를 가짐
+* 첫번째 노드를 head, 마지막 노드를 tail이라고 함
+
+|                | 배열        | 연결 리스트 |
+| -------------- | ----------- | ----------- |
+| 저장 공간      | 연속한 위치 | 임의의 위치 |
+| 특정 원소 조회 | O(1)        | O(n)        |
+
+
+
+### 연결 리스트 구현
+
+* 기본 자료구조
+
+	```python
+	class Node:
+	    def __init__(self, value, nextNode = None):
+	        self.value = value
+	        self.next = nextNode
+	
+	class LinkedList:
+	    def __init__(self):
+	        self.nodeCount = 0
+	        self.head = None
+	        self.tail = None
+	```
+
+* 특정 원소 참조
+
+  ```python
+  # class LinkedList
+  	def getAt(self, position):
+          if position <= 0 or position > self.nodeCount:
+              return None
+         	
+          index = 1
+          current = self.head
+          while index < position:
+              current = current.next
+              index += 1
+          return current
+  ```
+
+  
