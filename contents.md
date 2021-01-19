@@ -401,7 +401,7 @@ def func(n):
               return None
           
           current = prev.next
-          value = current.data
+          value = current.value
           prev.next = current.next
           if prev.next is None:
               self.tail = prev
@@ -416,6 +416,76 @@ def func(n):
           
           prev = self.getAt(position - 1)
           return self.popAfter(prev)
+  ```
+
+<br>
+
+# Part10. Doubly Linked List
+
+### 양방향 연결 리스트 (Doubly Linked List)
+
+* 앞, 뒤 양방향으로 링크가 존재하는 연결 리스트
+
+* 리스트 양 끝에 더미 노드를 추가함으로써 head와 tail을 수정할 필요가 없어지고, 코드가 훨씬 깔끔해진다.
+
+  ```python
+  class Node:
+      def __init__(self, item, prevNode=None, nextnode=None):
+          self.value = item
+          self.prev = prevNode
+          self.next = nextNode
+  
+  class DoublyLinkedList:
+      def __init__(self)
+          self.nodeCount = 0
+          self.head = Node(None)
+          self.tail = Node(None)
+          self.head.next = self.tail
+          self.tail.prev = self.head
+  ```
+
+* 리스트 순회
+
+  ```python
+  	def traverse(self):
+          result = []
+          current = self.head
+          while current.next.next:
+              current = current.next
+              result.append(current.value)
+          return result
+      # 조금만 고치면 역방향 순회도 가능!
+  ```
+
+* 원소의 삽입
+
+  ```python
+  	def insertAfter(self, prev, newNode):
+          next = prev.next
+          newNode.prev = prev
+          newNode.next = next
+          prev.next = newNode
+          next.prev = newNode
+          self.nodeCount += 1
+          return True
+  ```
+
+* 특정 원소 조회
+
+  ```python
+  	def getAt(self, position):
+          if position < 0 or position > self.nodeCount:
+              return Node
+          
+          # head나 tail 중 가까운 곳에서부터 탐색을 시작함
+          if position > self.nodeCount // 2:
+              i = 0
+              current = self.tail
+              while i < self.nodeCount - pos + 1:
+                  current = current.prev
+                  i += 1
+          else
+          	...
   ```
 
 <br>
