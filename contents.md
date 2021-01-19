@@ -289,11 +289,11 @@ def func(n):
               self.head = newNode
           else:
               if position == self.nodeCount + 1:
-                  previous = self.tail
+                  prev = self.tail
               else:
-                  previous = self.getAt(position - 1)
-              newNode.next = previous.next
-              previous.next = newNode
+                  prev = self.getAt(position - 1)
+              newNode.next = prev.next
+              prev.next = newNode
              
          	if position == self.nodeCount + 1:
               self.tail = newNode
@@ -322,12 +322,12 @@ def func(n):
               value = self.head.value
               self.head = self.head.next
           else:
-              previous = self.getAt(position - 1)
-              current = previous.next
+              prev = self.getAt(position - 1)
+              current = prev.next
               value = current.value
-              previous.next = current.next
+              prev.next = current.next
               if position == self.nodeCount:
-                  self.tail = previous
+                  self.tail = prev
           
           self.nodeCount -= 1
           return value
@@ -343,4 +343,80 @@ def func(n):
   	        self.tail = otherList.tail
           self.nodeCount + otherList.nodeCount
   ```
+
+<br>
+
+# Part9. Linked List 3
+
+* 조회의 효율성이 떨어지는 대신 삽입과 삭제가 쉬운 것이 연결 리스트의 장점인데, 앞서 구현한 `insertAt()`이나 `popAt()`은 항상 `getAt()`을 사용하므로 연결 리스트의 장점을 살리지 못한다.
+
+* 효율적으로 노드를 삽입하고 삭제하기 위해, 특정 노드의 뒤에 삽입, 삭제를 하는 기능을 구한한다.
+
+* 그 전에 리스트의 맨 앞에 삽입, 삭제하는 경우를 위해 리스트의 첫번째 노드를 더미 노드로 두도록 구현을 변경한다.
+
+  ```python
+  class LinkedList:
+      def __init__(self):
+          self.nodeCount = 0
+          self.head = Node(None)
+          self.tail = None
+          self.head.next = self.tail
+      
+      # 다른 연산들도 이에 맞춰 변경
+  ```
+
+* 원소의 삽입
+
+  * prev가 가리키는 node의 다음에 newNode를 삽입하고 성공여부에 따라 True/False를 리턴
+
+  ```python
+  # class LinkedList
+  	def insertAfter(self, prev, newNode):
+          newNode.next = prev.next
+          if prev.next is None:
+              self.tail = newNode
+          prev.next = newNode
+          self.nodeCount += 1
+          return True
+      
+      def insertAt(self, position, newNode):
+          if position < 1 or position > self.nodeCount + 1:
+              return False
+          if position != 1 and position == self.nodeCount + 1:
+              prev = self.tail
+          else:
+              prev = self.getAt(position - 1)
+          return self.insertAvter(self, prev, newNode)
+  ```
+
+* 원소의 삭제
+
+  * prev의 다음 노드를 삭제해서 그 노드의 값을 리턴
+    * prev가 마지막 노드일 때는 None을 리턴
+
+  ```python
+  # class LinkedList
+      def popAfter(self, prev):
+          if prev.next is None:
+              return None
+          
+          current = prev.next
+          value = current.data
+          prev.next = current.next
+          if prev.next is None:
+              self.tail = prev
+          
+          self.nodeCount -= 1
+          return value
+  
+  
+      def popAt(self, position):
+          if position < 1 or position > self.nodeCount:
+              raise IndexError
+          
+          prev = self.getAt(position - 1)
+          return self.popAfter(prev)
+  ```
+
+<br>
 
