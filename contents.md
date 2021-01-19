@@ -123,10 +123,8 @@ def func(n):
 	```python
 	# Recursive
 	def solution(x):
-	    if x <= 0:
-	        return 0
-	    elif x == 1:
-	        return 1
+	    if x <= 1:
+	        return x
 	    else:
 	        return solution(x-2) + solution(x-1)
 	```
@@ -145,5 +143,16 @@ def func(n):
 	
 	    return iter_A + iter_B
 	```
-	
-	
+
+<br>
+
+# Part5. Recursive Algorithms - Applied
+
+* 피보나치 수를 구할 경우, 재귀와 반복의 효율 차이가 큼
+  * n번째 피보나치 수를 구할 경우, 반복은 n번의 계산만 하면 되지만 재귀는 (중복을 포함하여) 2^n번의 계산을 하게 됨
+* 단 이진 트리나 하노이의 탑 같은 경우처럼 재귀로 간단하게 구현 가능하지만 반복으로 구현하기 힘든 문제도 있음
+
+<br>
+
+
+
