@@ -475,7 +475,7 @@ def func(n):
   ```python
   	def getAt(self, position):
           if position < 0 or position > self.nodeCount:
-              return Node
+              return None
           
           # head나 tail 중 가까운 곳에서부터 탐색을 시작함
           if position > self.nodeCount // 2:
@@ -489,4 +489,48 @@ def func(n):
   ```
 
 <br>
+
+# Part11. Stack
+
+### 스택(stack)
+
+* 자료(data element)를 보관할 수 있는 선형 구조
+* 자료를 넣을 때는 한쪽 끝에 밀어 넣고(push), 꺼낼 때는 넣은 쪽에서 꺼냄(pop) -> 후입선출(LIFO)
+
+#### 스택에서 발생하는 오류
+
+* 빈 스택에서 pop하려 할 때 -> stack underflow
+
+* 꽉 찬 스택에 데이터를 넣으려 할 때 -> stack overflow
+
+#### 스택의 연산
+
+* `size()`: 현재 스택에 있는 원소 수를 리턴
+* `isEmpty()`: 현재 스택이 비어 있는지 판단
+* `push(x)`: 데이터 원소 x를 스택에 추가
+* `pop()`: 스택의 맨 위에 저장된 데이터 원소를 제거하고 리턴
+* `peek()`: 스택의 맨 위에 저장된 데이터 원소를 리턴 (제거하지 않음)
+
+### 스택의 활용 - 수식의 괄호 유효성 검사
+
+* 올바른 수식: `(A + B)`, `{(A + B) * C}`, `[(A + B) * (C + D)]` 등
+
+* 올바르지 않은 수식: `(A + B`, `A + B)`, `{A * (B + C})`, `[(A + B) * (C + D)}` 등
+
+  ```python
+  def checkBracket(expression: str):
+      brackets = {"(":")", "{":"}", "[":"]"}
+      match = brackets.values()
+      expression = expression.replace(" ","")
+      stack = []
+      for c in expression:
+          if c in brackets:
+              stack.append(c)
+          if c in match:
+              if len(stack) == 0:
+                  retrun False
+              if brackets[stack.pop()] != c:
+                  return False
+      return len(stack) == 0
+  ```
 
