@@ -619,3 +619,13 @@ def func(n):
 
 <br>
 
+# Part16. Priority Queue
+
+### 우선순위 큐(Priority Queue)
+
+* 큐가 FIFO 방식을 따르지 않고 원소들의 우선순위에 따라 원소를 꺼내는 방식.
+
+* 기존 큐에서 `enqueue()`시에 우선순위에 맞추어 삽입하도록 수정하면 우선순위 큐가 된다.
+
+<br>
+
