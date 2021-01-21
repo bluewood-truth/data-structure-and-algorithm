@@ -629,3 +629,24 @@ def func(n):
 
 <br>
 
+# Part17. Tree
+
+### 트리(Tree)
+
+* 정점(node)과 간선(edge)을 이용하여 데이터의 배치 형태를 추상화한 자료구조.
+
+#### 트리의 구성
+
+* root: 첫번째 노드 (부모가 없는 노드)
+* leaf: 마지막 노드 (자식이 없는 노드)
+* level: root 노드와의 최단거리의 간선 수
+* height(depth): 최대 level + 1
+* subtree: 특정 노드를 기준으로 해당 노드 위를 잘라낸 트리
+* degree: 노드의 차수. 자식 수
+
+### 이진 트리(Binary Tree)
+
+* 모든 노드의 차수가 2 이하인 트리
+* 트리는 재귀적으로 정의할 수 있음
+  * 이진 트리: root 노드 + 왼쪽 subtree + 오른쪽 subtree (단, 빈 tree도 subtree로 취급한다)
+* 
