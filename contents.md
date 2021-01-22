@@ -713,10 +713,6 @@ class BinaryTree:
 
 * 전체 트리의 깊이 = left subtree의 깊이와 right subtree의 깊이 중 더 큰것 + 1
 
-```python
-
-```
-
 ### 이진 트리의 순회(Traversal)
 
 * 깊이 우선 순회 (depth fist traversal)
@@ -752,3 +748,23 @@ class BinaryTree:
 #### 후위 순회 (Post-order Traversal)
 
 * 순회의 순서: left subtree -> right subtree -> 자기 자신
+
+<br>
+
+# Part19. Binary Tree - BFS; Breadth First Trabersal
+
+### 넒이 우선 순회 (Breadth First Traversal)
+
+* root부터 한 단계씩 낮은 level의 노드들을 방문한다.
+* level이 같은 노드들 사이에서는,
+  * 부모 노드의 방문 순서에 따라 방문한다.
+  * 부모가 같으면 왼쪽 자식 노드를 오른쪽 자식보다 먼저 방문한다.
+
+* BFS는 재귀로 구현하기 어렵다.-> 큐를 이용!
+
+#### 알고리즘 설계
+
+* root 노드를 큐에 넣고 시작한다.
+* 큐에서 하나씩 노드를 꺼내서 값을 저장한다. 이후 해당 노드의 left, right를 차례로 큐에 넣는다.
+* 큐가 비워질 때까지 계속 반복한다.
+
