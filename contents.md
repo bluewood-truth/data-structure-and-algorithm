@@ -635,18 +635,120 @@ def func(n):
 
 * 정점(node)과 간선(edge)을 이용하여 데이터의 배치 형태를 추상화한 자료구조.
 
-#### 트리의 구성
+#### 용어
 
 * root: 첫번째 노드 (부모가 없는 노드)
 * leaf: 마지막 노드 (자식이 없는 노드)
 * level: root 노드와의 최단거리의 간선 수
 * height(depth): 최대 level + 1
 * subtree: 특정 노드를 기준으로 해당 노드 위를 잘라낸 트리
-* degree: 노드의 차수. 자식 수
+* degree: 어떤 노드의 차수 (자식 수)
 
 ### 이진 트리(Binary Tree)
 
 * 모든 노드의 차수가 2 이하인 트리
 * 트리는 재귀적으로 정의할 수 있음
-  * 이진 트리: root 노드 + 왼쪽 subtree + 오른쪽 subtree (단, 빈 tree도 subtree로 취급한다)
-* 
+  * 이진 트리 = root 노드 + 왼쪽 subtree + 오른쪽 subtree (단, 빈 tree도 subtree로 취급한다)
+
+#### 포화 이진 트리 (Full Binary Tree)
+
+* 모든 레벨에서 노드들이 모두 채워져 있는 이진 트리
+
+#### 완전 이진 트리 (Complete Binary Tree)
+
+* 다음의 조건을 만족하는 레벨 k의 이진 트리
+  * 레벨 k-2까지는 모든 노드가 2개의 자식을 가짐
+  * 레벨 k-1에서는 왼쪽부터 노드가 순차적으로 채워짐
+
+<br>
+
+# Part18. Binary Tree
+
+#### 이진 트리의 연산
+
+* `size()`: 현재 트리에 포함된 노드 수를 구함
+* `depth()`: 현재 트리의 깊이를 구함
+* 순회(traversal): 각 노드를 방문함
+
+### 이진 트리 구현
+
+#### 노드
+
+* 자료, left child, right child 멤버를 가짐
+
+```python
+class Node:
+    def __init__(self, item):
+        self.data = item
+        self.left = None
+        self.right = None
+```
+
+#### 트리
+
+```python
+class BinaryTree:
+	def __init__(self, root):
+		self.root = root
+```
+
+#### size()
+
+* 트리는 재귀적으로 정의되므로 size도 재귀적으로 처리할 수 있음
+* 전체 트리의 사이즈 = left subtree의 사이즈 + right subtree의 사이즈 + 1 (자기자신)
+
+```python
+# class Node:
+	def size(self):
+        left_size = self.left.size() if self.left else 0
+        right_size = self.right.size() if self.right else 0
+        return left_size + right_size + 1
+
+# class BinaryTree:
+	def size(self):
+        return self.root.size() if self.root else 0
+```
+
+#### depth()
+
+* 전체 트리의 깊이 = left subtree의 깊이와 right subtree의 깊이 중 더 큰것 + 1
+
+```python
+
+```
+
+### 이진 트리의 순회(Traversal)
+
+* 깊이 우선 순회 (depth fist traversal)
+  * 중위 순회 (in-order traversal)
+  * 전위 순회 (pre-order traversal)
+  * 후위 순회 (post-order traversal)
+* 넓이 우선 순회 (breadth first traversal)
+
+#### 중위 순회 (In-order Traversal)
+
+* 순회의 순서: left subtree -> 자기 자신 -> right subtree
+
+```python
+# class Node:
+	def inorder(self):
+        traversal = []
+        if self.left:
+        	traversal += self.left.inorder
+        traversal.append(self.data)
+       	if self.right:
+            traversal += self.right.inorder()
+        return traversal
+
+# class BinaryTree:
+	def inorder(self):
+        return self.root.inorder() if root else []
+```
+
+#### 전위 순회 (Pre-order Traversal)
+
+* 순회의 순서: 자기 자신 -> left subtree -> right subtree
+
+#### 후위 순회 (Post-order Traversal)
+
+* 순회의 순서: left subtree -> right subtree -> 자기 자신
