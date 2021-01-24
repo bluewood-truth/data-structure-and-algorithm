@@ -730,7 +730,7 @@ class BinaryTree:
 	def inorder(self):
         traversal = []
         if self.left:
-        	traversal += self.left.inorder
+        	traversal += self.left.inorder()
         traversal.append(self.data)
        	if self.right:
             traversal += self.right.inorder()
@@ -767,4 +767,123 @@ class BinaryTree:
 * root 노드를 큐에 넣고 시작한다.
 * 큐에서 하나씩 노드를 꺼내서 값을 저장한다. 이후 해당 노드의 left, right를 차례로 큐에 넣는다.
 * 큐가 비워질 때까지 계속 반복한다.
+
+<br>
+
+# Part20. Binary Search Tree
+
+### 이진 탐색 트리(Binary Search Tree)
+
+* 모든 노드에 대해서 다음의 성질을 만족하는 이진 트리. (중복되는 데이터 원소는 없는 것으로 가정)
+  * 왼쪽 서브트리에 있는 데이터는 모두 현재 노드의 값보다 작다
+  * 오른쪽 서브트리에 있는 데이터는 모두 현재 노드의 값보다 크다
+
+#### 정렬된 배열과 비교
+
+* 장점: 데이터 원소의 추가, 삭제 용이 (트리 구조이므로 노드 추가, 삭제가 편함)
+* 단점: 공간 소요가 큼
+
+#### 연산의 정의
+
+* `insert(key, data)`: 트리에 주어진 데이터 원소를 추가
+* `remove()`: 특정 원소를 트리로부터 삭제
+* `lookup()`: 특정 원소를 검색
+* `inorder()`: 키의 순서대로 데이터 원소들을 나열
+* `min()`, `max()`: 최소 키, 최대 키를 가지는 원소를 각각 탐색
+
+### 이진 탐색 트리 구현
+
+#### 노드와 트리
+
+```python
+class Node;
+	def __init__(self, key, value):
+        self.key = key
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BinSearchTree:
+    def __init__(self):
+        self.root = None
+```
+
+#### 중위 순회 (In-order Traversal)
+
+```python
+# class Node:
+	def inorder(self):
+        traversal = []
+        if self.left:
+        	traversal += self.left.inorder()
+        traversal.append(self)
+       	if self.right:
+            traversal += self.right.inorder()
+        return traversal
+
+# class BinSearchTree:
+	def inorder(self):
+        return self.root.inorder() if root else []
+```
+
+#### min(), max()
+
+```python
+# class Node:
+	def min(self):
+        return self.left.min() if self.left else self
+    
+    def max(self):
+        return self.right.min() if self.right else self
+
+# class BinSearchTree:
+	def min(self):
+        return self.root.min() if self.root else None
+    
+    def max(self):
+        return self.root.max() if self.root else None
+```
+
+#### lookup()
+
+* 입력: 찾으려는 대상 키
+* 리턴: 찾은 노드와 그것의 부모 노드 (없으면 각각 None)
+
+```python
+# class Node:
+	def lookup(self, key, parent=None):
+        if key < self.key:
+            return self.left.lookup(key, self) if self.left else None, None
+        elif key > self.key:
+            return self.right.lookup(key, self) if self.left else None, None
+        else:
+            return self, parent
+    
+# class BinSearchTree:
+	def lookup(self, key):
+        return self.root.lookup(key) if self.root else None, None
+```
+
+#### insert()
+
+* 입력: 키, 데이터 원소
+* 리턴: 없음
+
+```python
+# class Node:
+	def insert(self, key, data):
+        if key < self.key:
+            
+        else key > self.key:
+        
+        else:
+            raise KeyError("BinSearchTree contains duplicated key.")
+
+# class BinSearchTree:
+	def insert(self, key, data):
+        if self.root:
+            self.root.insert(key, data)
+        else:
+            self.root = Node(key, data)
+```
 
