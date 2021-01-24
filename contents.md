@@ -977,3 +977,62 @@ class MaxHeap:
 
 <br>
 
+# Part23. Heap - 2
+
+#### 원소의 삭제
+
+* 트리 마지막 자리 노드를 삭제하고 그 값을 임시로 루트 노드의 자리에 배치
+* 자식 노드들과 값을 비교하여 계속 아래로 이동
+  * 최대 힙이 되기 위해 자식 중 큰 값과 바꿈
+
+```python
+# class MaxHeap:
+    def remove(self):
+        if len(self.data) > 1:
+            self.data[1], self.data[-1] = self.data[-1], self.data[1]
+            data = self.data.pop()
+            self.maxHeapify(1)
+        else:
+            data = None
+        return data
+    
+    def maxHeapify(self, i):
+        left = i * 2
+        right = i * 2 + 1
+        smallest = i
+        
+        if left > 0 and self.data[left] > self.data[smallest]:
+            smallest = left
+        if right > 0 and self.data[right] > self.data[smallest]:
+            smallest = right
+        
+        if smallest != i:
+            self.data[i], self.data[smallest] = self.data[smallest], self.data[i]
+			self.maxHeapify(smallest)
+```
+
+### 최대/최소 힙의 응용
+
+* 우선순위 큐 (priority queue): Enqueue, Dequeue 모두 O(log n)
+
+* 힙 정렬
+
+  * 정렬되지 않은 원소들을 최대 힙에 삽입 -> O(log n)
+  * 삽입이 끝나면 힙이 빌 때까지 원소들을 하나씩 삭제 -> O(log n)
+  * 원소들이 삭제된 순서가 원소들의 정렬 순서임
+  * 전체 복잡도: O(n log n)
+
+  ```python
+  def heapsort(unsorted):
+      H = MaxHeap()
+      for item in unsorted:
+          H.insert(item)
+      sorted = []
+      d = H.remove()
+      while d:
+          sorted.append(d)
+          d = H.remove()
+      return sorted
+  ```
+
+  
