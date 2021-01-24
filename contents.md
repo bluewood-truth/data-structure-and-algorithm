@@ -922,3 +922,58 @@ class BinSearchTree:
 
 <br>
 
+# Part22. Heap
+
+### 힙(Heap)
+
+* 이진 트리의 한 종류. binary heap이라고 하기도 함.
+* root노드가 언제나 최댓값 또는 최솟값을 가짐. (최대 힙 또는 최소 힙)
+* 완전 이진 트리여야 함.
+* 최대/최소 힙 내의 임의의 노드를 root로 하는 subtree 또한 최대/최소 힙임.
+* 느슨한 정렬: 부모-자식 간에는 규칙이 있으나 좌, 우 자식들의 상대적인 순서는 상관이 없음
+
+### 최대 힙의 추상적 자료구조
+
+#### 연산의 정의
+
+* `__init__()`: 빈 최대 힙을 생성
+* `insert(item)`: 새로운 최대 원소를 삽입
+* `remove()`: 최대 원소(root)를 삭제하고 반환
+
+#### 배열을 이용한 이진 트리의 표현
+
+* 각 노드의 번호를 위에서 아래로, 왼쪽에서 오른쪽으로 매겨서 index로 삼을 수 있음.
+  * 왼쪽 자식의 번호: 2 * m
+  * 오른쪽 자식의 번호: 2 * m  + 1
+  * 부모 노드의 번호: m // 2
+* 완전 이진 트리이므로 노드의 추가/삭제는 마지막 노드에서만 일어남 -> 배열로 구현하기에 적합
+
+### 최대 힙 구현
+
+#### 생성자
+
+```python
+class MaxHeap:
+    def __init__(self):
+        self.data = [None]
+```
+
+#### 원소 삽입
+
+* 트리의 마지막 자리에 새로운 원소를 임시로 저장
+* 부모 노드와 키값을 비교하여 계속 위로 이동
+
+```python
+# class MaxHeap:
+    def insert(self, item):
+        self.data.append(item)
+        item_index = len(self.data) - 1
+        parent_index = item_index // 2
+        while parent_index > 0 and item > self.data[parent_index]:
+            self.data[item_index], self.data[parent_index] = self.data[parent_index], self.data[item_index]
+            item_index = parent_index
+            parent_index = item_index // 2
+```
+
+<br>
+
