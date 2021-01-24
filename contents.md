@@ -873,9 +873,15 @@ class BinSearchTree:
 # class Node:
 	def insert(self, key, data):
         if key < self.key:
-            
+            if self.left:
+                self.left.insert(key, data)
+            else:
+                self.left = Node(key, data)
         else key > self.key:
-        
+            if self.right:
+                self.right.insert(key, data)
+            else:
+                self.right = Node(key, data)
         else:
             raise KeyError("BinSearchTree contains duplicated key.")
 
@@ -886,4 +892,33 @@ class BinSearchTree:
         else:
             self.root = Node(key, data)
 ```
+
+<br>
+
+# Part21. Binary Search Tree - 2
+
+### 이진 탐색 트리의 원소 삭제
+
+* 키를 이용해 해당 노드를 찾는다. 이때 해당 노드의 부모 노드도 알아야 한다.
+* 찾은 노드를 제거하고 이진 탐색 트리 성질을 만족하도록 트리의 구조를 정리한다. (이때 부모 노드가 필요)
+
+#### 인터페이스 설계
+
+* 입력: 키
+* 출력: 삭제한 경우 True, 해당 키의 노드가 없는 경우 False
+
+#### 이진 탐색 트리 구조의 유지
+
+삭제하려는 노드가
+
+* leaf 노드인 경우: 그냥 삭제 (부모 노드의 링크를 None으로 바꿈)
+* 자식을 하나 가지고 있을 경우: 삭제되는 노드 자리에 그 자식을 배치
+* 자식을 둘 가지고 있을 경우: 삭제되는 노드 다음으로 작은 키를 가지는 노드를 찾아 삭제되는 노드 자리에 배치하고, 대체한 노드를 삭제
+
+### 이진 트리가 별로 효율적이지 못한 경우
+
+* 연속된 숫자를 insert하면 한쪽으로 치우친 불균형한 트리가 됨 -> 연결 리스트와 다를 바 없음
+* AVL 트리, Red-black 트리 등은 높이 균형을 유지함으로써 O(log n) 탐색 효율을 보장함
+
+<br>
 
